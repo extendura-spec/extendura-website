@@ -15,8 +15,12 @@ if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
-$auth = gh auth status 2>&1
-if ($LASTEXITCODE -ne 0) {
+$prevEAP = $ErrorActionPreference
+$ErrorActionPreference = "Continue"
+gh auth status 2>&1 | Out-Null
+$loggedIn = ($LASTEXITCODE -eq 0)
+$ErrorActionPreference = $prevEAP
+if (-not $loggedIn) {
     Write-Host ""
     Write-Host "Anda belum login ke GitHub." -ForegroundColor Yellow
     Write-Host "Jalankan perintah berikut, lalu pilih:" -ForegroundColor Yellow
@@ -31,16 +35,25 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Membuat repository '$RepoName' dan push ke GitHub..." -ForegroundColor Green
 
-if (git remote get-url origin 2>$null) {
+$hasOrigin = $false
+$prevEAP = $ErrorActionPreference
+$ErrorActionPreference = "Continue"
+$originUrl = git remote get-url origin 2>$null
+if ($LASTEXITCODE -eq 0 -and $originUrl) { $hasOrigin = $true }
+$ErrorActionPreference = $prevEAP
+
+if ($hasOrigin) {
     Write-Host "Remote 'origin' sudah ada. Push saja..." -ForegroundColor Yellow
     git push -u origin main
 } else {
-    gh repo create $RepoName --public --source=. --remote=origin --push --description "Extendura — Premium video editing business website"
+    $desc = "Extendura - Premium video editing business website"
+    gh repo create $RepoName --public --source=. --remote=origin --push --description $desc
 }
 
 if ($LASTEXITCODE -eq 0) {
     $url = gh repo view --json url -q .url
+    $pagesUrl = "$url/settings/pages"
     Write-Host ""
     Write-Host "Berhasil! Repository: $url" -ForegroundColor Green
-    Write-Host "Aktifkan GitHub Pages di: $url/settings/pages" -ForegroundColor Cyan
+    Write-Host "Aktifkan GitHub Pages di: $pagesUrl" -ForegroundColor Cyan
 }
