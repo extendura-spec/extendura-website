@@ -1,15 +1,70 @@
 /**
- * Extendura — Site config (update WhatsApp number here)
+ * Extendura — Site config
+ * Ubah URL sosial media di bawah (kosongkan url "" untuk menyembunyikan platform)
  */
 const SITE_CONFIG = {
-  whatsapp: "6281234567890", // Format: kode negara tanpa +, contoh 62812...
-  email: "hello@extendura.id",
+  whatsapp: "628976549508", // Format: kode negara tanpa +, contoh 62812...
+  email: "extendura@gmail.com",
+  social: [
+    {
+      id: "instagram",
+      label: "Instagram",
+      short: "IG",
+      url: "https://www.instagram.com/extendura",
+    },
+    {
+      id: "tiktok",
+      label: "TikTok",
+      short: "TT",
+      url: "https://www.tiktok.com/@extendura",
+    },
+    {
+      id: "youtube",
+      label: "YouTube",
+      short: "YT",
+      url: "https://www.youtube.com/@extendura",
+    },
+    {
+      id: "facebook",
+      label: "Facebook",
+      short: "FB",
+      url: "https://www.facebook.com/extendura",
+    },
+    // Tambah platform lain — contoh LinkedIn (hapus // jika dipakai):
+    // { id: "linkedin", label: "LinkedIn", short: "IN", url: "https://www.linkedin.com/company/extendura" },
+    // { id: "threads", label: "Threads", short: "TH", url: "https://www.threads.net/@extendura" },
+  ],
 };
+
+function renderSocialLinks(container, useFullLabel) {
+  if (!container) return;
+  const items = SITE_CONFIG.social.filter((s) => s.url && s.url.trim());
+  container.innerHTML = items
+    .map(
+      (s) =>
+        `<a href="${s.url}" target="_blank" rel="noopener noreferrer" class="social-link social-link--${s.id}" aria-label="${s.label}">${useFullLabel ? s.label : s.short}</a>`
+    )
+    .join("");
+}
 
 (function () {
   "use strict";
 
   const waBase = `https://wa.me/${SITE_CONFIG.whatsapp}`;
+
+  // Social media links (contact + footer + semua [data-social-mount])
+  document.querySelectorAll("[data-social-mount]").forEach((el) => {
+    const fullLabel = el.dataset.socialMount === "footer";
+    renderSocialLinks(el, fullLabel);
+  });
+
+  // Email dari config
+  document.querySelectorAll("[data-email-link]").forEach((el) => {
+    if (SITE_CONFIG.email) {
+      el.href = `mailto:${SITE_CONFIG.email}`;
+      if (el.dataset.emailLink === "text") el.textContent = SITE_CONFIG.email;
+    }
+  });
 
   // Apply WhatsApp links
   document.querySelectorAll("#whatsappLink, #whatsappFloat").forEach((el) => {
