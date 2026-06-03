@@ -1,0 +1,16 @@
+{
+  "name": "extendura-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Extendura business profile website",
+  "scripts": {
+    "start": "serve -s . -l tcp://0.0.0.0:${PORT:-3000}",
+    "dev": "serve -s . -l 3000"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

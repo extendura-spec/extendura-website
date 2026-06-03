@@ -38,7 +38,11 @@ Lalu buka http://localhost:8080
 
 ## Deploy
 
-Upload seluruh folder ke hosting statis (Netlify, Vercel, GitHub Pages, cPanel, dll). Tidak perlu database.
+**Railway (disarankan):** ikuti panduan lengkap di [RAILWAY.md](./RAILWAY.md).
+
+Ringkas: hubungkan repo GitHub `extendura-spec/extendura-website` di [railway.app](https://railway.app) → deploy otomatis.
+
+Alternatif: Netlify, Vercel, GitHub Pages, cPanel. Tidak perlu database.
 
 ## Brand (dari brief)
 

@@ -9,6 +9,9 @@ desktop.ini
 *.swp
 *~
 
+# Node
+node_modules/
+
 # Env / secrets
 .env
 .env.*
