@@ -30,11 +30,12 @@ Lalu buka http://localhost:8080
 ## Yang perlu Anda siapkan
 
 1. **Nomor WhatsApp** — Edit di `js/main.js` → `SITE_CONFIG.whatsapp` (format: `62812...` tanpa +)
-2. **Showreel hero** — Letakkan file `assets/showreel.mp4` dan opsional `assets/hero-poster.jpg`
-3. **Logo** — Ganti monogram SVG atau tambahkan `assets/logo.png`
-4. **Portfolio** — Ganti placeholder dengan thumbnail video + link embed
-5. **OG image** — `assets/og-image.jpg` (1200×630 px) untuk share sosial media
-6. **Email & link sosial** — Sesuaikan di `index.html` dan `SITE_CONFIG`
+2. **Media sosial** — Edit di `js/main.js` → `SITE_CONFIG.social` (Instagram, TikTok, YouTube, Facebook, dll.)
+3. **Showreel hero** — Letakkan file `assets/showreel.mp4` dan opsional `assets/hero-poster.jpg`
+4. **Logo** — Ganti monogram SVG atau tambahkan `assets/logo.png`
+5. **Portfolio** — Ganti placeholder dengan thumbnail video + link embed
+6. **OG image** — `assets/og-image.jpg` (1200×630 px) untuk share sosial media
+7. **Email** — Sesuaikan `SITE_CONFIG.email`
 
 ## Deploy
 
