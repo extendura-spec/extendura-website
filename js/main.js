@@ -4,7 +4,9 @@
  */
 const SITE_CONFIG = {
   whatsapp: "628976549508", // Format: kode negara tanpa +, contoh 62812...
+  whatsappDisplay: "+62 897-6549-508", // Teks yang tampil di halaman (bebas format)
   email: "extendura@gmail.com",
+  location: "Pekanbaru, Indonesia",
   social: [
     {
       id: "instagram",
@@ -66,13 +68,26 @@ function renderSocialLinks(container, useFullLabel) {
     }
   });
 
-  // Apply WhatsApp links
-  document.querySelectorAll("#whatsappLink, #whatsappFloat").forEach((el) => {
-    if (el.id === "whatsappLink") {
-      el.href = waBase;
-    } else {
-      el.href = waBase + "?text=" + encodeURIComponent("Halo Extendura, saya ingin konsultasi project video editing.");
+  // Lokasi dari config
+  const locationEl = document.getElementById("contactLocation");
+  if (locationEl && SITE_CONFIG.location) {
+    locationEl.textContent = SITE_CONFIG.location;
+  }
+
+  // Apply WhatsApp links + teks nomor
+  const whatsappLink = document.getElementById("whatsappLink");
+  if (whatsappLink) {
+    whatsappLink.href = waBase;
+    if (SITE_CONFIG.whatsappDisplay) {
+      whatsappLink.textContent = SITE_CONFIG.whatsappDisplay;
     }
+  }
+
+  document.querySelectorAll("#whatsappFloat").forEach((el) => {
+    el.href =
+      waBase +
+      "?text=" +
+      encodeURIComponent("Halo Extendura, saya ingin konsultasi project video editing.");
   });
 
   // Header scroll state
